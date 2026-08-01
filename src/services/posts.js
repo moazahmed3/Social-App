@@ -1,0 +1,30 @@
+import api from "./api";
+
+export const PostsAPI = {
+ async fetchAllPosts() {
+    const { data } = await api.get("/posts", {
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    });
+
+    return data;
+  },
+ async fetchPostDetails(id) {
+    const { data } = await api.get(`/posts/${id}`, {
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    });
+
+    return data;
+  },
+ async createPosts(formData) {
+    const { data } =await api.post("/posts", formData, {
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    });
+    return data;
+  },
+};
