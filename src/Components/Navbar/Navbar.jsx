@@ -36,9 +36,15 @@ export default function NavbarApp() {
             inline
             label={
               user?.photo ? (
-                <Avatar alt="User settings" img={user.photo} rounded />
+                <Avatar
+                  className="cursor-pointer"
+                  alt="User settings"
+                  img={user.photo}
+                  rounded
+                />
               ) : (
                 <Avatar
+                  className="cursor-pointer"
                   alt="User settings"
                   img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
                   rounded
@@ -78,7 +84,7 @@ export default function NavbarApp() {
               </>
             )}
           </Dropdown>
-          <NavbarToggle />
+          {/* <NavbarToggle /> */}
         </div>
 
         {token && (

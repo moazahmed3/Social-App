@@ -6,7 +6,7 @@ export default function MainLayout() {
   return (
     <>
       <NavbarApp />
-      <main className=" min-h-dvh dark:bg-slate-900 py-10">
+      <main className=" min-h-dvh dark:bg-slate-900 py-10 px-4">
         {/* Child form main layout */}
         <Outlet />
       </main>

@@ -69,7 +69,7 @@ export default function LoginPage() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="max-w-4/12 mx-auto p-10 my-10 bg-white shadow-lg rounded-2xl border dark:bg-slate-900 border-slate-300"
+      className="md:max-w-6/12 lg:max-w-4/12  mx-auto p-10  my-10 bg-white shadow-lg rounded-2xl border dark:bg-slate-900 border-slate-300"
     >
       <h1 className="text-4xl text-center font-bold mb-3 text-slate-800 dark:text-amber-50">
         Login
