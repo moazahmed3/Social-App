@@ -1,7 +1,7 @@
 import api from "./api";
 
 export const PostsAPI = {
- async fetchAllPosts() {
+  async fetchAllPosts() {
     const { data } = await api.get("/posts", {
       headers: {
         token: localStorage.getItem("token"),
@@ -10,7 +10,7 @@ export const PostsAPI = {
 
     return data;
   },
- async fetchPostDetails(id) {
+  async fetchPostDetails(id) {
     const { data } = await api.get(`/posts/${id}`, {
       headers: {
         token: localStorage.getItem("token"),
@@ -19,8 +19,24 @@ export const PostsAPI = {
 
     return data;
   },
- async createPosts(formData) {
-    const { data } =await api.post("/posts", formData, {
+  async createPosts(formData) {
+    const { data } = await api.post("/posts", formData, {
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    });
+    return data;
+  },
+  async deletePost(id) {
+    const { data } = await api.delete(`posts/${id}`, {
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    });
+    return data;
+  },
+  async getPostsUser(userId) {
+    const { data } = await api.get(`users/${userId}/posts`, {
       headers: {
         token: localStorage.getItem("token"),
       },

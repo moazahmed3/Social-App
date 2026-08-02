@@ -7,6 +7,7 @@ import NotFoundPage from "../Pages/NotFoundPage/NotFoundPage";
 import ProtectedRoute from "../guards/ProtectedRoute";
 import PublicRoute from "./../guards/PublicRoute";
 import PostDetails from "../Pages/PostDetails/PostDetails";
+import MyProfile from "../Pages/MyProfile/MyProfile";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,6 +26,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <PostDetails />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "myProfile",
+        element: (
+          <ProtectedRoute>
+            <MyProfile />
           </ProtectedRoute>
         ),
       },

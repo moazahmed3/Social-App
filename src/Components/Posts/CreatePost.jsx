@@ -3,23 +3,23 @@ import { Avatar, FileInput, Textarea } from "flowbite-react";
 import { HiOutlinePhotograph, HiX } from "react-icons/hi";
 import { AuthContext } from "../../Context/AuthContext";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ValidationError from "../Shared/ValidationError/ValidationError";
 import AppButton from "../Shared/AppButton/AppButton";
 import { PostsAPI } from "../../services/posts";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { schemaCreatePost } from "../../schemas/post.schema";
 export default function CreatePost() {
+  const queryClient = useQueryClient();
   const { user } = useContext(AuthContext);
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState("");
-  const schemaCreatePost = z.object({
-    body: z.string().trim().min(1, "Body is required"),
-  });
+
   const {
     register,
     handleSubmit,
+    formState: { errors },
     reset,
-    formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
       body: "",
@@ -27,24 +27,29 @@ export default function CreatePost() {
     resolver: zodResolver(schemaCreatePost),
   });
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: onSubmit,
+    onSuccess: () => {
+      console.log("success");
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      queryClient.invalidateQueries({ queryKey: ["userPosts"] });
+      reset();
+      removeImage();
+    },
+    onError: () => {
+      console.log("Error");
+    },
+  });
+
   async function onSubmit({ body }) {
-    try {
-      const formData = new FormData();
+    const formData = new FormData();
 
-      formData.append("body", body);
-      if (image) {
-        formData.append("image", image);
-      }
-
-      const data = await PostsAPI.createPosts(formData);
-
-      if (data.success) {
-        reset();
-        removeImage();
-      }
-    } catch (error) {
-      console.log(error.response?.data || error.message);
+    formData.append("body", body);
+    if (image) {
+      formData.append("image", image);
     }
+
+    return await PostsAPI.createPosts(formData);
   }
 
   function handleImage(e) {
@@ -75,7 +80,7 @@ export default function CreatePost() {
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(mutate)}
       className="shadow-lg border border-gray-300 rounded-2xl p-6 flex flex-col gap-4"
     >
       {/* Header */}
@@ -136,9 +141,9 @@ export default function CreatePost() {
         </label>
 
         <AppButton
-          disable={isSubmitting}
+          disable={isPending}
           className={` dark:bg-white dark:text-slate-800 dark:hover:text-amber-50`}
-          loading={isSubmitting}
+          loading={isPending}
         >
           Create Post
         </AppButton>

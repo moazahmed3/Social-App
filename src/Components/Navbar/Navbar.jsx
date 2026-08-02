@@ -66,7 +66,7 @@ export default function NavbarApp() {
             {token ? (
               <>
                 {" "}
-                <DropdownItem as={Link} to={"/myProfile"}>
+                <DropdownItem as={Link} to={"/myprofile"}>
                   MyProfile
                 </DropdownItem>
                 <DropdownItem>Settings</DropdownItem>

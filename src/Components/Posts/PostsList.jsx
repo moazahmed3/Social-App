@@ -1,51 +1,38 @@
 import Post from "./Post";
-import { useEffect, useState } from "react";
 import Loader from "./../Loader/Loader";
 import { Alert } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
 import { PostsAPI } from "../../services/posts";
+import { useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
+import { AuthContext } from "../../Context/AuthContext";
 
-export default function PostsList() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [errorApi, setErrorApi] = useState("");
+export default function PostsList({ isHome = false }) {
+  const { user } = useContext(AuthContext);
 
-  async function getPosts() {
-    try {
-      setLoading(true);
-      const data = await PostsAPI.fetchAllPosts();
-      if (data.success) {
-        setPosts(data.data.posts);
-        setErrorApi("");
-      } else {
-        setPosts([]);
-        setErrorApi(data.message);
-      }
-    } catch (error) {
-      setPosts([]);
-      setErrorApi(error.response?.data?.message || error.message);
-    } finally {
-      setLoading(false);
-    }
-  }
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: isHome ? ["posts"] : ["userPosts"],
+    queryFn: isHome
+      ? PostsAPI.fetchAllPosts
+      : () => PostsAPI.getPostsUser(user?._id),
+    retry: 2,
+    staleTime: 1000 * 60,
+    enabled: isHome || !!user?._id,
+  });
 
-  useEffect(() => {
-    getPosts();
-  }, []);
+  if (isPending) return <Loader />;
 
-  if (loading) return <Loader />;
-
-  if (errorApi) {
+  if (isError) {
     return (
       <Alert color="failure" icon={HiInformationCircle}>
-        {errorApi}
+        {error.response?.data?.message || error.message}
       </Alert>
     );
   }
 
   return (
     <div className="flex flex-col gap-y-8">
-      {posts.map((post) => (
+      {data.data?.posts?.map((post) => (
         <Post key={post._id} post={post} />
       ))}
     </div>
