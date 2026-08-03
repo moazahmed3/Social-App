@@ -109,7 +109,7 @@ export default function Post({ post, isDetails = false }) {
           <Link to={`/posts/${_id}`}>
             {/* Body */}
             {body && (
-              <p className="text-gray-700 whitespace-pre-line text-lg">
+              <p className="text-gray-700 whitespace-pre-line text-lg mb-3">
                 {body}
               </p>
             )}
@@ -128,7 +128,7 @@ export default function Post({ post, isDetails = false }) {
         <>
           {/* Body */}
           {body && (
-            <p className="text-gray-700 whitespace-pre-line text-lg">{body}</p>
+            <p className="text-gray-700 whitespace-pre-line text-lg mb-3">{body}</p>
           )}
 
           {/* Image */}

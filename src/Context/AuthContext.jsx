@@ -1,44 +1,42 @@
-import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import Loader from "../Components/Loader/Loader";
+import { UsersAPI } from "../services/users";
+import ValidationError from "../Components/Shared/ValidationError/ValidationError";
 
-export const AuthContext = createContext(0);
+export const AuthContext = createContext(null);
 
 export default function AuthContextProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
-  const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    if (token) {
-      getPersonalData(token);
-    }
-  }, [token]);
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: ["userProfile"],
+    queryFn: UsersAPI.getProfile,
+    enabled: !!token,
+    retry: 1,
+    staleTime: 1000 * 60 * 5,
+  });
 
-  async function getPersonalData(token) {
-    try {
-      const { data } = await axios.get(
-        "https://route-posts.routemisr.com/users/profile-data",
-        {
-          headers: { token },
-        },
-      );
+  const user = data?.data?.user ?? null;
 
-      if (data.success) {
-        setUser(data.data.user);
-      }
-    } catch (error) {
-      console.log(error);
-      logout();
-    }
+  function login(newToken) {
+    localStorage.setItem("token", newToken);
+    setToken(newToken);
   }
 
   function logout() {
     localStorage.removeItem("token");
     setToken(null);
-    setUser(null);
   }
-  function login(token) {
-    localStorage.setItem("token", token);
-    setToken(token);
+
+  if (token && isPending) {
+    return <Loader />;
+  }
+
+  if (token && isError) {
+    return (
+      <ValidationError error={error.response?.data?.message || error.message} />
+    );
   }
 
   return (
@@ -46,8 +44,9 @@ export default function AuthContextProvider({ children }) {
       value={{
         token,
         user,
-        logout,
         login,
+        logout,
+        isLoadingUser: isPending,
       }}
     >
       {children}

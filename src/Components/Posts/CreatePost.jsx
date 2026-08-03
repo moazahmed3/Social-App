@@ -36,8 +36,8 @@ export default function CreatePost() {
       reset();
       removeImage();
     },
-    onError: () => {
-      console.log("Error");
+    onError: (error) => {
+      console.log("Error", error.message);
     },
   });
 

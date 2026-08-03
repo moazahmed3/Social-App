@@ -35,12 +35,4 @@ export const PostsAPI = {
     });
     return data;
   },
-  async getPostsUser(userId) {
-    const { data } = await api.get(`users/${userId}/posts`, {
-      headers: {
-        token: localStorage.getItem("token"),
-      },
-    });
-    return data;
-  },
 };
