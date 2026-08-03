@@ -52,15 +52,16 @@ export default function Post({ post, isDetails = false }) {
   return (
     <Card className="shadow-md">
       {/* Header */}
-      <div className="flex justify-between items-start">
-        <div className="flex gap-3">
+      {/* Header */}
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex flex-1 items-start gap-3 min-w-0">
           <Avatar img={user?.photo} rounded />
 
-          <div>
-            <h3 className="font-semibold text-lg">{user?.name}</h3>
+          <div className="min-w-0">
+            <h3 className="truncate text-lg font-semibold">{user?.name}</h3>
 
-            <div className="flex items-center gap-2 text-sm text-gray-500">
-              <span>@{user?.username}</span>
+            <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-500">
+              <span className="truncate">@{user?.username}</span>
 
               <span>•</span>
 
@@ -68,37 +69,35 @@ export default function Post({ post, isDetails = false }) {
 
               <span>•</span>
 
-              <HiOutlineGlobeAlt />
-
-              <span className="capitalize">{privacy}</span>
+              <span className="flex items-center gap-1">
+                <HiOutlineGlobeAlt />
+                <span className="capitalize">{privacy}</span>
+              </span>
             </div>
           </div>
         </div>
 
-        {/* Actions   */}
         {currentUser._id === user._id && (
-          <>
-            <Dropdown
-              arrowIcon={false}
-              renderTrigger={() => (
-                <button className="cursor-pointer rounded-full p-2 hover:bg-gray-100 transition">
-                  <HiOutlineDotsHorizontal size={22} />
-                </button>
-              )}
+          <Dropdown
+            arrowIcon={false}
+            renderTrigger={() => (
+              <button className="shrink-0 rounded-full p-2 transition hover:bg-gray-100">
+                <HiOutlineDotsHorizontal size={22} />
+              </button>
+            )}
+          >
+            <DropdownItem icon={FaShareAlt}>Share</DropdownItem>
+
+            <DropdownItem icon={FaRegEdit}>Edit</DropdownItem>
+
+            <DropdownItem
+              onClick={mutate}
+              icon={MdDelete}
+              className="text-red-600"
             >
-              <DropdownItem icon={FaShareAlt}>Share</DropdownItem>
-
-              <DropdownItem icon={FaRegEdit}>Edit</DropdownItem>
-
-              <DropdownItem
-                onClick={mutate}
-                icon={MdDelete}
-                className="text-red-600"
-              >
-                Delete
-              </DropdownItem>
-            </Dropdown>
-          </>
+              Delete
+            </DropdownItem>
+          </Dropdown>
         )}
       </div>
 
@@ -128,7 +127,9 @@ export default function Post({ post, isDetails = false }) {
         <>
           {/* Body */}
           {body && (
-            <p className="text-gray-700 whitespace-pre-line text-lg mb-3">{body}</p>
+            <p className="text-gray-700 whitespace-pre-line text-lg mb-3">
+              {body}
+            </p>
           )}
 
           {/* Image */}

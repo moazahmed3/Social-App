@@ -1,6 +1,4 @@
-import { Button, Card, Label, TextInput } from "flowbite-react";
 import { useContext, useEffect, useState } from "react";
-import { HiCamera, HiLockClosed } from "react-icons/hi";
 import { AuthContext } from "../../Context/AuthContext";
 import { useForm } from "react-hook-form";
 
