@@ -28,4 +28,14 @@ export const UsersAPI = {
     );
     return data;
   },
+
+  async changePassword(formData) {
+    const { data } = await api.patch("/users/change-password", formData, {
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    });
+
+    return data;
+  },
 };

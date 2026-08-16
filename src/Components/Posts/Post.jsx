@@ -17,7 +17,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { PostsAPI } from "../../services/posts";
 import { toast } from "react-toastify";
 
-export default function Post({ post, isDetails = false }) {
+export default function Post({ post, isHome }) {
   const { user: currentUser } = useContext(AuthContext);
   const {
     body,
@@ -41,7 +41,8 @@ export default function Post({ post, isDetails = false }) {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
       queryClient.invalidateQueries({ queryKey: ["userPosts"] });
       toast.success("Post deleted successfully");
-      isDetails && navigate("/myProfile");
+      // reload but where home or details
+      isHome ? navigate("/") : navigate("/myProfile");
     },
     onError: (error) => {
       console.log(error.response?.data?.message || error.message);
@@ -51,7 +52,6 @@ export default function Post({ post, isDetails = false }) {
 
   return (
     <Card className="shadow-md">
-      {/* Header */}
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex flex-1 items-start gap-3 min-w-0">
@@ -103,7 +103,7 @@ export default function Post({ post, isDetails = false }) {
 
       {/* navigate to post details */}
 
-      {!isDetails ? (
+      {isHome ? (
         <>
           <Link to={`/posts/${_id}`}>
             {/* Body */}
@@ -177,7 +177,7 @@ export default function Post({ post, isDetails = false }) {
         </Button>
       </div>
       {/* Top Comment one comment */}
-      {topComment && !isDetails && <Comment comment={topComment} />}
+      {topComment && isHome && <Comment comment={topComment} />}
     </Card>
   );
 }

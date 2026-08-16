@@ -7,7 +7,7 @@ import { AuthContext } from "../../Context/AuthContext";
 import usePosts from "../../hooks/usePosts";
 import usePost from "../../hooks/usePost";
 
-export default function PostsList({ isHome = false }) {
+export default function PostsList({ isHome }) {
   const { user } = useContext(AuthContext);
 
   const postsQuery = usePosts({
@@ -21,7 +21,7 @@ export default function PostsList({ isHome = false }) {
     ? postsQuery
     : userPostsQuery;
 
-    // loading state
+  // loading state
   if (isPending) return <Loader />;
 
   // error state
@@ -36,7 +36,7 @@ export default function PostsList({ isHome = false }) {
   return (
     <div className="flex flex-col gap-y-8">
       {data.data?.posts?.map((post) => (
-        <Post key={post._id} post={post} />
+        <Post key={post._id} post={post} isHome={isHome} />
       ))}
     </div>
   );

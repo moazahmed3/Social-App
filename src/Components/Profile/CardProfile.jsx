@@ -8,6 +8,8 @@ import CardAbout from "./CardAbout";
 import CardStats from "./CardStats";
 import CardCover from "./CardCover";
 import CardAvatar from "./CardAvatar";
+import ModalChangePassword from "./ModalChangePassword";
+
 
 export default function CardProfile() {
   const { user } = useContext(AuthContext);
@@ -98,38 +100,12 @@ export default function CardProfile() {
 
           {/* Change Password */}
 
-          {/* <Button className="cursor-pointer" color={"dark"}>
-            Change Password
-          </Button>
+        
+       
+        <ModalChangePassword/>
+        
 
-          <Card>
-            <h2 className="mb-6 flex items-center gap-2 text-2xl font-bold">
-              <HiLockClosed />
-              Change Password
-            </h2>
 
-            <form className="space-y-5">
-              <div>
-                <Label value="Current Password" />
-
-                <TextInput type="password" />
-              </div>
-
-              <div>
-                <Label value="New Password" />
-
-                <TextInput type="password" />
-              </div>
-
-              <div>
-                <Label value="Confirm Password" />
-
-                <TextInput type="password" />
-              </div>
-
-              <Button>Save Password</Button>
-            </form>
-          </Card> */}
 
           {/* Upload Modal */}
           <ModalUpdateImage
