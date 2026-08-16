@@ -35,4 +35,17 @@ export const PostsAPI = {
     });
     return data;
   },
+
+  async toggleLike(postId) {
+    const { data } = await api.put(
+      `/posts/${postId}/like`,
+      {},
+      {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      },
+    );
+    return data;
+  },
 };

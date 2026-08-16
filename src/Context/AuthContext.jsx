@@ -1,6 +1,5 @@
 import { createContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import Loader from "../Components/Loader/Loader";
 import { UsersAPI } from "../services/users";
 import ValidationError from "../Components/Shared/ValidationError/ValidationError";
 
@@ -29,9 +28,9 @@ export default function AuthContextProvider({ children }) {
     setToken(null);
   }
 
-  if (token && isPending) {
-    return <Loader />;
-  }
+  // if (token && isPending) {
+  //   return <ScreenLoader />;
+  // }
 
   if (token && isError) {
     return (

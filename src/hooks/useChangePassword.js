@@ -1,13 +1,18 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { UsersAPI } from "../services/users";
+import { useContext } from "react";
+import { AuthContext } from "../Context/AuthContext";
 
 export default function useChangePassword() {
+  const { login } = useContext(AuthContext);
   return useMutation({
     mutationFn: (data) => UsersAPI.changePassword(data),
 
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast.success("Password changed successfully");
+      console.log(data);
+      login(data.data.token);
     },
 
     onError: (error) => {

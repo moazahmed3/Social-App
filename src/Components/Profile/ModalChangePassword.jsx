@@ -15,14 +15,12 @@ import AppButton from "../Shared/AppButton/AppButton";
 import ValidationError from "../Shared/ValidationError/ValidationError";
 
 import useChangePassword from "../../hooks/useChangePassword";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaChangePassword } from "../../schemas/password.schema";
-import { AuthContext } from "../../Context/AuthContext";
 
 export default function ModalChangePassword() {
   const [openModal, setOpenModal] = useState(false);
-  const { logout } = useContext(AuthContext);
 
   const {
     register,
@@ -46,7 +44,6 @@ export default function ModalChangePassword() {
       onSuccess: () => {
         reset();
         setOpenModal(false);
-        logout();
       },
     });
   }
@@ -73,7 +70,12 @@ export default function ModalChangePassword() {
 
       {/* Modal */}
 
-      <Modal dismissible={!isPending} show={openModal} onClose={handleClose}>
+      <Modal
+        className="overscroll-y-auto"
+        dismissible
+        show={openModal}
+        onClose={handleClose}
+      >
         <ModalHeader>
           <div className="flex items-center gap-2">
             <HiLockClosed className="text-xl" />

@@ -1,11 +1,12 @@
-import Post from "./Post";
-import Loader from "./../Loader/Loader";
 import { Alert } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
 import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import usePosts from "../../hooks/usePosts";
 import usePost from "../../hooks/usePost";
+import Post from "./Post/Post";
+import ScreenLoader from "../Loader/ScreenLoader";
+import { Link } from "react-router-dom";
 
 export default function PostsList({ isHome }) {
   const { user } = useContext(AuthContext);
@@ -22,13 +23,18 @@ export default function PostsList({ isHome }) {
     : userPostsQuery;
 
   // loading state
-  if (isPending) return <Loader />;
+  if (isPending) return <ScreenLoader />;
 
   // error state
   if (isError) {
     return (
-      <Alert color="failure" icon={HiInformationCircle}>
+      <Alert
+        className="flex justify-center h-screen"
+        color="failure"
+        icon={HiInformationCircle}
+      >
         {error.response?.data?.message || error.message}
+        <Link to={"/"}> Home </Link>
       </Alert>
     );
   }

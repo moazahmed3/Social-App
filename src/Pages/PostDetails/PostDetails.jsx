@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom";
-import Post from "../../Components/Posts/Post";
 import { PostsAPI } from "../../services/posts";
 import { useEffect } from "react";
-import Loader from "../../Components/Loader/Loader";
 import { HiInformationCircle } from "react-icons/hi";
 import { Alert } from "flowbite-react";
 import { useQuery } from "@tanstack/react-query";
 import CommentsList from "../../Components/Comments/CommentsList";
+import Post from "../../Components/Posts/Post/Post";
+import ScreenLoader from "../../Components/Loader/ScreenLoader";
 
 export default function PostDetails() {
   const { id } = useParams();
@@ -27,7 +27,7 @@ export default function PostDetails() {
   }, [id]);
 
   if (isPending) {
-    return <Loader />;
+    return <ScreenLoader />;
   }
 
   if (isError) {

@@ -5,10 +5,10 @@ import {
   DropdownDivider,
   DropdownItem,
 } from "flowbite-react";
-import { formatDate } from "../../lib/formatDate";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { formatDate } from "../../lib/formatDate";
 
 export default function Comment({ comment }) {
   const { commentCreator, content, createdAt } = comment;
