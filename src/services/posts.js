@@ -58,4 +58,16 @@ export const PostsAPI = {
     );
     return data;
   },
+  async toggleBookmark(postId) {
+    const { data } = await api.put(
+      `/posts/${postId}/bookmark`,
+      {},
+      {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      },
+    );
+    return data;
+  },
 };
