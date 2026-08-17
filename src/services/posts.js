@@ -36,6 +36,16 @@ export const PostsAPI = {
     return data;
   },
 
+  async updatePost(postId, formData) {
+    const { data } = await api.put(`/posts/${postId}`, formData, {
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    });
+
+    return data;
+  },
+
   async toggleLike(postId) {
     const { data } = await api.put(
       `/posts/${postId}/like`,

@@ -1,25 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
-import { CommentsAPI } from "../../services/comments";
 import { Alert } from "flowbite-react";
-import Loader from "../Loader/Loader";
 import Comment from "./Comment";
+import Loader from "../Loader/Loader";
+import useComments from "../../hooks/useComments";
 
 export default function CommentsList({ id }) {
-  const {
-    data: comments,
-    isPending,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["comments", id],
-    queryFn: () => CommentsAPI.getComments(id),
-    enabled: !!id,
-    retry: 2,
-    staleTime: 1000 * 60,
-    select: (response) => response.data.comments,
-  });
+  const { data: comments, isPending, isError, error } = useComments(id);
 
-  if (isPending) return <Loader />;
+  if (isPending) {
+    return (
+      <div className="flex justify-center py-4">
+        <Loader size="sm" />
+      </div>
+    );
+  }
 
   if (isError) {
     return (

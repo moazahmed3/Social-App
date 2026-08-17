@@ -71,7 +71,7 @@ export default function ModalChangePassword() {
       {/* Modal */}
 
       <Modal
-        className="overscroll-y-auto"
+        className="overflow-y-auto"
         dismissible
         show={openModal}
         onClose={handleClose}

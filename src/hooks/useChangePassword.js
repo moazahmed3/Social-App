@@ -11,7 +11,6 @@ export default function useChangePassword() {
 
     onSuccess: (data) => {
       toast.success("Password changed successfully");
-      console.log(data);
       login(data.data.token);
     },
 

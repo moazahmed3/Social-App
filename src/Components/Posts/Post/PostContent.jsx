@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function PostContent({ body, image, postId, isHome }) {
+export default function PostContent({ body, image, postId }) {
   const content = (
     <>
       {body && (
@@ -17,9 +17,5 @@ export default function PostContent({ body, image, postId, isHome }) {
     </>
   );
 
-  if (isHome) {
-    return <Link to={`/posts/${postId}`}>{content}</Link>;
-  }
-
-  return content;
+  return <Link to={`/posts/${postId}`}>{content}</Link>;
 }

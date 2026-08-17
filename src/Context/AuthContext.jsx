@@ -1,7 +1,6 @@
 import { createContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { UsersAPI } from "../services/users";
-import ValidationError from "../Components/Shared/ValidationError/ValidationError";
 
 export const AuthContext = createContext(null);
 
@@ -28,16 +27,6 @@ export default function AuthContextProvider({ children }) {
     setToken(null);
   }
 
-  // if (token && isPending) {
-  //   return <ScreenLoader />;
-  // }
-
-  if (token && isError) {
-    return (
-      <ValidationError error={error.response?.data?.message || error.message} />
-    );
-  }
-
   return (
     <AuthContext.Provider
       value={{
@@ -45,6 +34,8 @@ export default function AuthContextProvider({ children }) {
         user,
         login,
         logout,
+        isError,
+        error,
         isLoadingUser: isPending,
       }}
     >

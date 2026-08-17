@@ -10,8 +10,11 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
+
+        
         <AuthContextProvider>
           <AppRoutes />
+
           <ToastContainer
             position="top-right"
             autoClose={3000}
@@ -25,6 +28,7 @@ function App() {
             theme="light"
             transition={Bounce}
           />
+
           <ReactQueryDevtools />
         </AuthContextProvider>
       </QueryClientProvider>

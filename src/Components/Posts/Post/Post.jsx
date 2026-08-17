@@ -13,14 +13,11 @@ export default function Post({ post, isHome }) {
   const {
     body,
     image,
-    privacy,
-    createdAt,
     likes,
     likesCount,
     commentsCount,
     sharesCount,
     bookmarked,
-    user,
     _id,
     topComment,
   } = post;
@@ -31,16 +28,13 @@ export default function Post({ post, isHome }) {
     <Card className="shadow-md">
       {/* Header */}
       <PostHeader
-        user={user}
-        createdAt={createdAt}
-        privacy={privacy}
-        postId={_id}
+        post={post}
         currentUser={currentUser}
         isHome={isHome}
       />
 
       {/* Content */}
-      <PostContent body={body} image={image} postId={_id} isHome={isHome} />
+      <PostContent body={body} image={image} postId={_id} />
 
       {/* Bookmark */}
       {bookmarked && (

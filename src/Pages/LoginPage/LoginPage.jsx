@@ -99,13 +99,13 @@ export default function LoginPage() {
         <ValidationError error={errors.password?.message} />
       </div>
 
-     <AppButton
+      <AppButton
         disable={isSubmitting}
         className={`mx-auto  mt-10 dark:bg-white dark:text-slate-800 dark:hover:text-amber-50`}
         loading={isSubmitting}
       >
         Login
-      </AppButton >
+      </AppButton>
 
       {errorApi && (
         <Alert className="mt-5" color="failure" icon={HiInformationCircle}>
