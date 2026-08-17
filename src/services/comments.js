@@ -10,4 +10,13 @@ export const CommentsAPI = {
 
     return data;
   },
+
+  async createComment(body, postId) {
+    const { data } = await api.post(`/posts/${postId}/comments`, body, {
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    });
+    return data;
+  },
 };

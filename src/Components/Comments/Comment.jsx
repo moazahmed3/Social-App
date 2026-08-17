@@ -13,7 +13,7 @@ import { formatDate } from "../../lib/formatDate";
 export default function Comment({ comment }) {
   const { commentCreator, content, createdAt } = comment;
 
-  const { name, username, photo } = commentCreator;
+  const { name, photo } = commentCreator;
 
   return (
     <Card className="shadow-sm">
@@ -26,7 +26,7 @@ export default function Comment({ comment }) {
               <h3 className="font-semibold">{name}</h3>
 
               <span className="text-sm text-gray-500">
-                @{username} • {formatDate(createdAt)}
+                {formatDate(createdAt)}
               </span>
             </div>
 
