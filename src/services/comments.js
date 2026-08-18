@@ -19,4 +19,43 @@ export const CommentsAPI = {
     });
     return data;
   },
+
+  async deleteComment(postId, commentId) {
+    const { data } = await api.delete(
+      `/posts/${postId}/comments/${commentId}`,
+      {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      },
+    );
+
+    return data;
+  },
+  async updateComment(postId, commentId, content) {
+    const { data } = await api.put(
+      `/posts/${postId}/comments/${commentId}`,
+      content,
+      {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      },
+    );
+
+    return data;
+  },
+  async toggleLike(postId, commentId) {
+    const { data } = await api.put(
+      `/posts/${postId}/comments/${commentId}/like`,
+      {},
+      {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      },
+    );
+
+    return data;
+  },
 };

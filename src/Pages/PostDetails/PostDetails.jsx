@@ -42,8 +42,8 @@ export default function PostDetails() {
     <section>
       <div className="container max-w-3xl flex flex-col gap-y-8  mx-auto">
         <Post post={data.data.post} isDetails={true} />
-
-        <CommentsList id={id} />
+      
+        <CommentsList id={id} postOwnerId={data.data.post.user._id} />
       </div>
     </section>
   );

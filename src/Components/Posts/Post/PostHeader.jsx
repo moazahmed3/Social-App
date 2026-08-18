@@ -14,6 +14,7 @@ import BookmarkButton from "./Bookmark";
 
 export default function PostHeader({ post, currentUser, isHome }) {
   const { user, createdAt, privacy, _id: postId, bookmarked } = post;
+ 
 
   // ================== Delete Post ==================
 

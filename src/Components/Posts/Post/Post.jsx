@@ -6,7 +6,7 @@ import PostHeader from "./PostHeader";
 import PostContent from "./PostContent";
 import PostStats from "./PostStats";
 import PostActions from "./PostActions";
-import Comment from "../../Comments/Comment";
+import Comment from "../../Comments/Comment/Comment";
 
 export default function Post({ post, isHome }) {
   const { user: currentUser } = useContext(AuthContext);
@@ -44,9 +44,6 @@ export default function Post({ post, isHome }) {
 
       {/* Top Comment */}
       {topComment && isHome && <Comment comment={topComment} />}
-
-
-      
     </Card>
   );
 }

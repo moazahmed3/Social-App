@@ -59,7 +59,7 @@ export default function PostActions({ postId, isLiked }) {
       </div>
 
       {/* create comment */}
-      {isCreateComment && <CreateComment postId={postId} />}
+      {isCreateComment && <CreateComment mood={"create"} postId={postId} />}
     </>
   );
 }
